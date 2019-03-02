@@ -1,4 +1,4 @@
-SLSparker is an application which searches for target spark, placing 53 diffrent SLs inside rectangular range iterativelly. Shooting glider from constant position, and checks for the target each generation. 
+SLSparker is an application which searches for target spark, placing 53 diffrent common ash objects (more probable than the eater including) inside rectangular range iterativelly. Shooting glider from constant position, and checks for the target each generation. 
 
 Based on LifeAPI and uses openmp. 
 
@@ -11,6 +11,8 @@ top-range -10, -10, 20, 1
 target-rle 2bo$b3o$ob3o$o2b3o$b4o$2b2o!  
 target-rle 2b2o$b4o$3o2bo$b3obo$2b3o$3bo!  
 top-rle 2o$2o!  
+two-only 
+report-top 100
 
 --------------
 
@@ -38,3 +40,8 @@ The rle of the target to be located anywhere inside the soup.
 If you have some predefind SL configuration that can increase the chances, use it. Otherwise just don't use it al all. 
 If you just want 2SLs search instead of 3, use block and place it in the corner. 
 	
+### two-only 
+Use only two SLs
+
+### report-top 
+If you want to only get best N results, sorted by population at the moment of finding the spark. 
