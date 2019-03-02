@@ -4,19 +4,13 @@ Based on LifeAPI and uses openmp.
 
 You need an input file with definitions of the format: 
 
-max-gen 100
-
-sl1-range -10, -10, 20, 20
-
-sl2-range -10, -10, 20, 20
-
-top-range -10, -10, 20, 1
-
-target-rle 2bo$b3o$ob3o$o2b3o$b4o$2b2o!
-
-target-rle 2b2o$b4o$3o2bo$b3obo$2b3o$3bo!
-
-top-rle 2o$2o!
+max-gen 100  
+sl1-range -10, -10, 20, 20  
+sl2-range -10, -10, 20, 20  
+top-range -10, -10, 20, 1  
+target-rle 2bo$b3o$ob3o$o2b3o$b4o$2b2o!  
+target-rle 2b2o$b4o$3o2bo$b3obo$2b3o$3bo!  
+top-rle 2o$2o!  
 
 --------------
 
