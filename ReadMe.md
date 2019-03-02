@@ -2,7 +2,7 @@ SLSparker is an application which searches for target spark, placing 53 diffrent
 
 Based on LifeAPI and uses openmp. 
 
-You need an input file with definitions of the format: 
+You need an input file with definitions of the format (see also p22.in file): 
 
 max-gen 100  
 sl1-range -10, -10, 20, 20  
