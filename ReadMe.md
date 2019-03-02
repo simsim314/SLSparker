@@ -7,10 +7,16 @@ You need an input file with definitions of the format (see also p22.in file):
 max-gen 100  
 sl1-range -10, -10, 20, 20  
 sl2-range -10, -10, 20, 20  
-top-range -10, -10, 20, 1  
+
 target-rle 2bo$b3o$ob3o$o2b3o$b4o$2b2o!  
 target-rle 2b2o$b4o$3o2bo$b3obo$2b3o$3bo!  
+
+two-only
+top-range -10, -10, 20, 1  
 top-rle 2o$2o!  
+
+report-top 100
+max-result 10000
 
 --------------
 
@@ -37,4 +43,15 @@ The rle of the target to be located anywhere inside the soup.
 ### top-rle
 If you have some predefind SL configuration that can increase the chances, use it. Otherwise just don't use it al all. 
 If you just want 2SLs search instead of 3, use block and place it in the corner. 
+
+### two-only
+Two only will use only two block and will ignore anything regarding the top 
+
+### max-result
+Will search until the number of results has reached max-result value. If you don't need all the results and you have already what you want in 100 search results, and you don't need all the million other results. 
+
+### report-top
+Will report only partial result which were with minimal population at the moment of location of the spark. 
+
+
 	
