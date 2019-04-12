@@ -7,7 +7,7 @@ target-rle 2bo$b3o$ob3o$o2b3o$b4o$2b2o!
 target-rle 2b2o$b4o$3o2bo$b3obo$2b3o$3bo!
 target-rle 3bo$2b3o$b5o$3ob2o$bo2bo$2b2o!
 
-#We have only two glider - everything regarded the top will be ignored
+#We have only two SLs - everything regarded the top will be ignored
 two-only
 top-range -15 -18 1 1
 top-rle 2o$2o!

@@ -1,0 +1,19 @@
+max-gen 200
+sl1-range -10 -7 20 1
+sl2-range -10 -7 20 7
+
+#partial list of all symmetries
+target-rle 3o$o$bo!
+
+#We have only two SLs - everything regarded the top will be ignored
+two-only
+
+#If you got 2000 results is good enough 
+max-result 100000
+
+#target population 
+target-pop 5 
+
+#Report only 100 of the best results
+report-top 10000
+

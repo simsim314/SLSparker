@@ -125,6 +125,8 @@ public:
 	int max_gen = 100; 
 	bool two_only = false; 
 	int report_top = 1000000;
+	int target_pop = -1; 
+	
 	void Print()
 	{
 		cout << "Searching Area:\n";
@@ -137,9 +139,12 @@ public:
 		sl2.Print();
 		cout << "\n";
 		
-		cout << "top:";
-		top.Print();
-		cout << "\n";
+		if(!two_only)
+		{
+			cout << "top:";
+			top.Print();
+			cout << "\n";
+		}
 	}
 	
 	SearchParams()
@@ -165,10 +170,13 @@ public:
 		uint64_t res = 1; 
 		res *= sl1.Area(); 
 		res *= sl2.Area(); 
-		res *= top.Area(); 
+		
+		if(two_only == false)
+			res *= top.Area(); 
+		
 		res *= 53 * 53; 
 		
-		if(top_rle == "")
+		if(top_rle == "" && two_only == false)
 			res *= 53; 
 		
 		return res;
@@ -195,6 +203,7 @@ bool ReadParams(std::string fname, SearchParams& params)
 	std::string max_result = "max-result";
 	std::string two_only = "two-only";
 	std::string report_top = "report-top";
+	std::string target_pop = "target-pop";
 	
 	std::string line; 
 	
@@ -234,6 +243,10 @@ bool ReadParams(std::string fname, SearchParams& params)
 			
 			if(elems[0] == top_rle) 
 				params.top_rle = elems[1];
+			
+			if(elems[0] == target_pop) 
+				params.target_pop = tonumber(elems[1]);
+			
 		}
 		catch(const std::exception& ex)
 		{
@@ -360,15 +373,27 @@ int main (int argc, char *argv[])
 			count++;
 			
 			if(count % 1000000 == 0)
-				cout << "Reached:" << count << ", and found " << sumvec(results) << " results \n";
+			{	
+				cout << "Reached:";
+				PrintPhysicalNotation(count);
+				cout << ", and found " << sumvec(results) << " results \n";
+			}
 		}
 		
 		if(Validate(iter1, iter2) != FAIL)
 		{
 			New();
+			PutState(iter1);
+			PutState(iter2);
+			Run(25);
+			
+			if(GetPop() != 0){
+			
+			New();
 			PutState(gld);
 			PutState(iter1);
 			PutState(iter2);
+			
 			
 			if(!search_params.two_only)
 				PutState(iter3);
@@ -405,29 +430,33 @@ int main (int argc, char *argv[])
 					
 					int idx; 
 					
-					if(ContainsLocatorArray(&locs[0], locs.size(), idx) == YES)
+					
+					if(search_params.target_pop <= 0 || (search_params.target_pop > 0 && GetPop() == search_params.target_pop))
 					{
-						int pop = GetPop(); 
-						
-						New();
-						PutState(gld);
-						PutState(iter1);
-						PutState(iter2);
-						
-						if(!search_params.two_only)
-							PutState(iter3);
-
-						#pragma omp critical
+						if(ContainsLocatorArray(&locs[0], locs.size(), idx) == YES)
 						{
-							results[idx].push_back(tuple<int, int, string>(pop, i, GetRLE(GlobalState)));
-							//printf("Found at generation %d\n", i);
-							//printf(GetRLE(GlobalState));
-							//printf("\n");
+							int pop = GetPop(); 
+							
+							New();
+							PutState(gld);
+							PutState(iter1);
+							PutState(iter2);
+							
+							if(!search_params.two_only)
+								PutState(iter3);
+
+							#pragma omp critical
+							{
+								results[idx].push_back(tuple<int, int, string>(pop, i, GetRLE(GlobalState)));
+								//printf("Found at generation %d\n", i);
+								//printf(GetRLE(GlobalState));
+								//printf("\n");
+							}
 						}
 					}
 				}
 			}
-		}
+		}}
 	}
    }while(Next(iter1, iter2, iter3, NO) && search_params.max_result > sumvec(results));
    //}while(Next(iter1, iter3, NO));
@@ -435,7 +464,7 @@ int main (int argc, char *argv[])
 	
 	for(int j = 0; j < results.size(); j++)
 	{
-		cout << "\n\n\nStarting Report for case #" << j << "\n";
+		cout << "\n\n\nStarting Report for case #" << j + 1 << "\n";
 	
 		sort(results[j].begin(), results[j].end()); 
 		
