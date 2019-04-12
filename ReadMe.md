@@ -53,5 +53,7 @@ Will search until the number of results has reached max-result value. If you don
 ### report-top
 Will report only partial result which were with minimal population at the moment of location of the spark. 
 
+### target-pop
+will filter by population in the result. See delay.in for example. 
 
 	
